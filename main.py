@@ -40,13 +40,6 @@ def compute_histogram(orientation, magnitude, num_bins=9):
     return hist
 
 
-def normalize_cell(cell):
-    norm = np.linalg.norm(cell)
-    if norm != 0:
-        cell /= norm
-    return cell
-
-
 def compute_hog(image, cell_size=(8, 8), num_bins=9):
     image = resize_image(image)
     magnitude, orientation = compute_gradients(image)
@@ -67,12 +60,9 @@ def compute_hog(image, cell_size=(8, 8), num_bins=9):
                 j * cell_size[1] : (j + 1) * cell_size[1],
             ]
             cell_histogram = compute_histogram(cell_ori, cell_mag, num_bins)
-            # normalized_cell = normalize_cell(cell_histogram)
-            # hog_descriptor.extend(normalized_cell)
             hog_image[
                 i * cell_size[0] : (i + 1) * cell_size[0], j * cell_size[1] : (j + 1) * cell_size[1]
             ] = cell_histogram[0]
-    hog_descriptor = np.array(hog_descriptor)
     return hog_image
 
 
