@@ -47,7 +47,7 @@ def compute_hog(image, cell_size=(8, 8), num_bins=9):
     height, width = magnitude.shape[:2]
     # cells_per_block = (block_size[0] // cell_size[0], block_size[1] // cell_size[1])
     num_cels = (height // cell_size[0], width // cell_size[1])
-    hog_descriptor = []
+
     hog_image = np.zeros((height, width), dtype=float)
     for i in range(num_cels[0]):
         for j in range(num_cels[1]):
@@ -61,7 +61,8 @@ def compute_hog(image, cell_size=(8, 8), num_bins=9):
             ]
             cell_histogram = compute_histogram(cell_ori, cell_mag, num_bins)
             hog_image[
-                i * cell_size[0] : (i + 1) * cell_size[0], j * cell_size[1] : (j + 1) * cell_size[1]
+                i * cell_size[0] : (i + 1) * cell_size[0],
+                j * cell_size[1] : (j + 1) * cell_size[1]
             ] = cell_histogram[0]
     return hog_image
 
